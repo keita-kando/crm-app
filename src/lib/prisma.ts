@@ -4,11 +4,16 @@ import { PrismaLibSql } from "@prisma/adapter-libsql";
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 function createPrismaClient() {
-  const adapter = new PrismaLibSql({
-    url: process.env.TURSO_DATABASE_URL!,
-    authToken: process.env.TURSO_AUTH_TOKEN,
-  });
-  return new PrismaClient({ adapter });
+  const url = process.env.TURSO_DATABASE_URL;
+  if (url && url.startsWith("libsql://")) {
+    const adapter = new PrismaLibSql({
+      url,
+      authToken: process.env.TURSO_AUTH_TOKEN,
+    });
+    return new PrismaClient({ adapter });
+  }
+  // Fallback: let Prisma use default datasource config
+  return new PrismaClient();
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();
