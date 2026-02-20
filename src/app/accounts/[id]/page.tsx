@@ -11,6 +11,8 @@ import { formatCurrency, formatDate } from "@/lib/format";
 import { DEAL_STAGES } from "@/lib/constants";
 import { DeleteAccountButton } from "@/components/accounts/delete-account-button";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AccountDetailPage({
   params,
 }: {

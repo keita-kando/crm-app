@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { PageHeader } from "@/components/layout/page-header";
 import { ContactForm } from "@/components/contacts/contact-form";
 
+export const dynamic = 'force-dynamic';
+
 export default async function NewContactPage({
   searchParams,
 }: {

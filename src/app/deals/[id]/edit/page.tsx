@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { PageHeader } from "@/components/layout/page-header";
 import { DealForm } from "@/components/deals/deal-form";
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditDealPage({
   params,
 }: {

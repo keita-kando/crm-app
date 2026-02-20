@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { AccountTable } from "@/components/accounts/account-table";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AccountsPage() {
   const accounts = await prisma.account.findMany({
     include: { _count: { select: { contacts: true, deals: true } } },

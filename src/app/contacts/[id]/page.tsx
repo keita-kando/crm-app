@@ -11,6 +11,8 @@ import { formatDate, formatCurrency } from "@/lib/format";
 import { DEAL_STAGES } from "@/lib/constants";
 import { DeleteContactButton } from "@/components/contacts/delete-contact-button";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ContactDetailPage({
   params,
 }: {

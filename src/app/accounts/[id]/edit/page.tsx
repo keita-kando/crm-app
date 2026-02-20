@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { PageHeader } from "@/components/layout/page-header";
 import { AccountForm } from "@/components/accounts/account-form";
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditAccountPage({
   params,
 }: {

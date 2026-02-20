@@ -8,6 +8,8 @@ import { PipelineFunnel } from "@/components/dashboard/pipeline-funnel";
 import { RecentDeals } from "@/components/dashboard/recent-deals";
 import { UpcomingTasks } from "@/components/dashboard/upcoming-tasks";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const [totalAccounts, deals, upcomingTasks] = await Promise.all([
     prisma.account.count(),

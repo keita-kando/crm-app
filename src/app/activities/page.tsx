@@ -5,6 +5,8 @@ import { ActivityList } from "@/components/activities/activity-list";
 import { TaskList } from "@/components/activities/task-list";
 import { ActivityFormDialog } from "@/components/activities/activity-form-dialog";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ActivitiesPage() {
   const [activities, accounts, contacts, deals] = await Promise.all([
     prisma.activity.findMany({

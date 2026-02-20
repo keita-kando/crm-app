@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { PipelineBoard } from "@/components/deals/pipeline-board";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DealsPage() {
   const deals = await prisma.deal.findMany({
     include: { account: true, contact: true },
