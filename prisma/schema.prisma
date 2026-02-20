@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Account {
+  id            String   @id @default(cuid())
+  name          String
+  industry      String?
+  phone         String?
+  website       String?
+  address       String?
+  description   String?
+  annualRevenue Float?
+  employees     Int?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  contacts   Contact[]
+  deals      Deal[]
+  activities Activity[]
+
+  @@index([name])
+}
+
+model Contact {
+  id         String   @id @default(cuid())
+  firstName  String
+  lastName   String
+  email      String?
+  phone      String?
+  title      String?
+  department String?
+  accountId  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  account    Account?   @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  deals      Deal[]     @relation("DealContact")
+  activities Activity[]
+
+  @@index([lastName, firstName])
+  @@index([accountId])
+  @@index([email])
+}
+
+model Deal {
+  id          String    @id @default(cuid())
+  name        String
+  amount      Float?
+  stage       String    @default("リード")
+  probability Int       @default(10)
+  closeDate   DateTime?
+  description String?
+  accountId   String?
+  contactId   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  account    Account?   @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  contact    Contact?   @relation("DealContact", fields: [contactId], references: [id], onDelete: SetNull)
+  activities Activity[]
+
+  @@index([stage])
+  @@index([accountId])
+  @@index([closeDate])
+}
+
+model Activity {
+  id          String    @id @default(cuid())
+  type        String
+  subject     String
+  description String?
+  dueDate     DateTime?
+  completed   Boolean   @default(false)
+  priority    String    @default("中")
+  accountId   String?
+  contactId   String?
+  dealId      String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  account Account? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  contact Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  deal    Deal?    @relation(fields: [dealId], references: [id], onDelete: SetNull)
+
+  @@index([type])
+  @@index([dueDate])
+  @@index([completed])
+  @@index([accountId])
+  @@index([contactId])
+  @@index([dealId])
+}
